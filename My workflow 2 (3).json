@@ -1,0 +1,449 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8160c617-837a-43d2-9b73-3beddbf64e65",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1C2vj8PGDhSVSbaBf2RI_gor4l0_E9gtsNJGkIspQwpI",
+          "mode": "list",
+          "cachedResultName": "Employee Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1C2vj8PGDhSVSbaBf2RI_gor4l0_E9gtsNJGkIspQwpI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 565382018,
+          "mode": "list",
+          "cachedResultName": "Employee Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1C2vj8PGDhSVSbaBf2RI_gor4l0_E9gtsNJGkIspQwpI/edit#gid=565382018"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "3a48565b-98a1-4d62-a173-60259d7d891c",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "bYq7AKgGt0mMIBad",
+          "name": "Google Sheets account 6"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d8232ede-6d8e-4da6-a05e-303a49334d77",
+              "leftValue": "={{ $json['Performance Score'] }}",
+              "rightValue": 85,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            },
+            {
+              "id": "b44b534e-752c-4aca-9930-965bb389228a",
+              "leftValue": "={{ $json['Attendance %'] }}",
+              "rightValue": 90,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        416,
+        0
+      ],
+      "id": "88dfb7be-2a88-41c8-86b5-956ba59b4139",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "5cfea6e7-29e7-438e-9298-9c97631b3eb4",
+              "leftValue": "={{ $json['Performance Score'] }}",
+              "rightValue": 70,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            },
+            {
+              "id": "b2f3c5d5-bfc8-4ac8-bf37-e66ef0a51248",
+              "leftValue": "={{ $json['Performance Score'] }}",
+              "rightValue": 85,
+              "operator": {
+                "type": "number",
+                "operation": "lte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        624,
+        96
+      ],
+      "id": "909eef9c-7775-453c-bca8-5cec2fd108dd",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d2da874f-8f25-45ef-9c73-2c0ba2b348d7",
+              "name": "Recommendation",
+              "value": "Highly Recommended",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        624,
+        -96
+      ],
+      "id": "6b3b7848-0095-436b-9992-734aa43d5d0a",
+      "name": "Highly Recommended"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b1b4a948-9671-4d9c-9641-2e79dce1e322",
+              "name": "Recommendation",
+              "value": "Recommended",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        800,
+        0
+      ],
+      "id": "6ade3a96-e01b-489b-b78d-453c22d824af",
+      "name": "Recommended"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e71ca6a8-158f-49eb-9598-648b17889a21",
+              "name": "Recommendation",
+              "value": "Not Recommended",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        848,
+        192
+      ],
+      "id": "3bbbe972-9543-48a3-95e4-ccc2b992c3b8",
+      "name": "Not Recommended"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1136,
+        -96
+      ],
+      "id": "c8d09918-c932-47ad-9b62-3299846fb862",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1C2vj8PGDhSVSbaBf2RI_gor4l0_E9gtsNJGkIspQwpI",
+          "mode": "list",
+          "cachedResultName": "Employee Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1C2vj8PGDhSVSbaBf2RI_gor4l0_E9gtsNJGkIspQwpI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 309991848,
+          "mode": "list",
+          "cachedResultName": "Sheet2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1C2vj8PGDhSVSbaBf2RI_gor4l0_E9gtsNJGkIspQwpI/edit#gid=309991848"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Employee Name": "={{ $json['Employee Name'] }}",
+            "Performance Score ": "={{ $json['Performance Score'] }}",
+            "Attendance": "={{ $json['Attendance %'] }}",
+            "Task Completed": "={{ $json['Tasks Completed'] }}",
+            "Feedback rating": "={{ $json['Feedback Rating'] }}",
+            "Department": "={{ $json.Department }}",
+            "Recommendation": "={{ $json.Recommendation }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Employee Name",
+              "displayName": "Employee Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Performance Score ",
+              "displayName": "Performance Score ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Attendance",
+              "displayName": "Attendance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Task Completed",
+              "displayName": "Task Completed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Feedback rating",
+              "displayName": "Feedback rating",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Department",
+              "displayName": "Department",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Recommendation",
+              "displayName": "Recommendation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1376,
+        -112
+      ],
+      "id": "7ff6da11-9ea3-43b3-8dea-c06f49ada454",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8pXYIByIuh4OOx3i",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Highly Recommended",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Recommended",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Not Recommended",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Highly Recommended": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recommended": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Not Recommended": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "cf0c1bb5-1b29-4a2f-b32c-61e8d98e6f7c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ea156e2159aa6b1c1a708ad8964fede19da1e9cf0c7a47736eca2c7c0dbc192c"
+  },
+  "id": "RujnLL77NQCaQq32",
+  "tags": []
+}
